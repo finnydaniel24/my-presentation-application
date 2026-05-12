@@ -182,7 +182,7 @@ const EvaluationSheet = ({ user, evaluations, onUpdate }: { user: Student, evalu
     <div className="min-h-screen bg-natural-bg font-sans selection:bg-natural-accent selection:text-white pb-12">
       <Header 
         title="Presentation Evaluation Portal" 
-        sub="Academic Year 2023-24 • Peer Review System" 
+        sub="Academic Year 2025-2027 • Peer Review System" 
         user={user} 
         onLogout={() => window.location.href = '/'} 
       />
