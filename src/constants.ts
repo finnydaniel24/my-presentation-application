@@ -16,7 +16,7 @@ export interface Team {
 }
 
 export const TEAMS: Team[] = [
-  { id: 'T1', name: 'Team 1', members: ['KONJETI Surya Hanuman', 'KAKANI Finny Daniel','MARUTURI Leela Venkata Sai Nikhil'] },
+  { id: 'T1', name: 'Team 1', members: ['KONJETI Surya Hanuman', 'KAKANI Finny Daniel', 'MARUTURI Leela Venkata Sai Nikhil'] },
   { id: 'T2', name: 'Team 2', members: ['PEDDAPUDI Naveen Kumar', 'BALAJI Rishitha'] },
   { id: 'T3', name: 'Team 3', members: ['CHAKKA Yaspal Venkata Sriram', 'VADLA Nandini'] },
   { id: 'T4', name: 'Team 4', members: ['PATAN Mohammad Adnan Khan', 'SIVANANDAM Devanand'] },

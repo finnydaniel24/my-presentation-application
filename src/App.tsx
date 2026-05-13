@@ -27,14 +27,17 @@ import { cn } from './lib/utils';
 const STORAGE_KEY = 'peer_eval_data';
 
 const getInitialData = (): Evaluation[] => {
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if (saved) return JSON.parse(saved);
+  const savedRaw = localStorage.getItem(STORAGE_KEY);
+  const saved: Evaluation[] = savedRaw ? JSON.parse(savedRaw) : [];
 
-  // Initialize 40 rows: Each student v all other teams
+  // Always derive the evaluation list from current STUDENTS and TEAMS
+  // so that if someone moves teams, their evaluation list updates correctly.
   const evals: Evaluation[] = [];
   STUDENTS.forEach(student => {
     TEAMS.filter(t => t.id !== student.teamId).forEach(team => {
-      evals.push({
+      const existing = saved.find(s => s.evaluatorId === student.id && s.evaluatedTeamId === team.id);
+      
+      evals.push(existing || {
         id: `${student.id}-${team.id}`,
         evaluatorId: student.id,
         evaluatedTeamId: team.id,
@@ -142,7 +145,7 @@ const Header = ({ title, sub, user, onLogout }: { title: string, sub?: string, u
 );
 
 const EvaluationSheet = ({ user, evaluations, onUpdate }: { user: Student, evaluations: Evaluation[], onUpdate: (e: Evaluation) => void }) => {
-  const userEvals = useMemo(() => evaluations.filter(e => e.evaluatorId === user.id), [evaluations, user.id]);
+  const userEvals = useMemo(() => evaluations.filter(e => e.evaluatorId === user.id && e.evaluatedTeamId !== user.teamId), [evaluations, user.id, user.teamId]);
   
   const calculateOverall = (scores: Record<EvaluationCategories, number | null>) => {
     const vals = Object.values(scores).filter((v): v is number => v !== null);
